@@ -1,14 +1,22 @@
-def set_difficulty
-  puts "Would you like an increased difficulty? Y/N"
+def yes_no_input(question, yes_reply, no_reply)
+  puts question
   reply = gets.chomp.upcase
   if reply == 'Y'
-    return "words.txt"
+    return yes_reply
   elsif reply == 'N'
-    return "common_words.txt"
+    return no_reply
   else
-    puts "Incorrect input."
-    set_difficulty
+    puts "Invalid input, try again."
+    yes_no_input(question, yes_reply, no_reply)
   end
+end
+
+def set_difficulty
+  yes_no_input("Would you like an increased difficulty? Y/N", "words.txt","common_words.txt")
+end
+
+def set_replay
+  yes_no_input("Play again? Y/N", true, false)
 end
 
 def load_dictionary(filename)
@@ -46,18 +54,8 @@ def display_word(word_array, letters_remaining)
   print "\n"
 end
 
-def set_replay
-  puts "Play again? Y/N"
-  reply = gets.chomp.upcase
-  if reply == 'Y'
-    return true
-  elsif reply == 'N'
-    return false
-  else
-    puts "Incorrect input."
-    set_replay
-  end
-end
+
+# Start game
 
 difficulty = set_difficulty
 words = load_dictionary(difficulty)
